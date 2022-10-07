@@ -1,0 +1,44 @@
+import java.util.*;
+public class LoadAtmMachine {
+	int thousand, fivehr, twohr,onehr;
+	int total;
+	public LoadAtmMachine(int thousand, int fivehr, int twohr, int onehr, int total) {
+		super();
+		this.thousand = thousand;
+		this.fivehr = fivehr;
+		this.twohr = twohr;
+		this.onehr = onehr;
+		this.total = total;
+	}
+	public int getThousand() {
+		return thousand;
+	}
+	public void setThousand(int thousand) {
+		this.thousand = thousand;
+	}
+	public int getFivehr() {
+		return fivehr;
+	}
+	public void setFivehr(int fivehr) {
+		this.fivehr = fivehr;
+	}
+	public int getTwohr() {
+		return twohr;
+	}
+	public void setTwohr(int twohr) {
+		this.twohr = twohr;
+	}
+	public int getOnehr() {
+		return onehr;
+	}
+	public void setOnehr(int onehr) {
+		this.onehr = onehr;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	
+}
