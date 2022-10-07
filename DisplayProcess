@@ -1,0 +1,212 @@
+import java.util.*;
+public class DisplayProcess {
+	static Scanner sc=new Scanner(System.in);
+	static List <LoadAtmMachine> l= new ArrayList<>();
+	static List<CustomerDetails> l1= new ArrayList<>();
+	public static void add1()
+	{
+		int a=sc.nextInt();
+		int b=sc.nextInt();
+		int c=sc.nextInt();
+		int d=sc.nextInt();
+		int total=2000*a+500*b+200*c+100*d;
+		LoadAtmMachine lat=new LoadAtmMachine(a,b,c,d,total);
+		l.add(lat);
+	}
+	public static void add2()
+	{
+		int a=sc.nextInt();
+		int b=sc.nextInt();
+		int c=sc.nextInt();
+		String name=sc.nextLine();
+		CustomerDetails cd=new CustomerDetails(a,name,b,c);
+		l1.add(cd);
+	}
+	public static void checkBalance()
+	{
+		int a=sc.nextInt();
+		int b=sc.nextInt();
+		int i;
+		for(CustomerDetails c:l1)
+		{
+			if(a==c.getAccNo()&&b==c.getPin())
+			{
+				System.out.println(c.getAcbalancde());
+			}
+		}
+	}
+	public static void transfer()
+	{
+		int a=sc.nextInt();
+		int b=sc.nextInt();
+		int a1,a2;
+		int amt=sc.nextInt();
+		//sender
+		for(CustomerDetails cd:l1)
+		{
+			a1=cd.getAcbalancde();
+			if(a==cd.getAccNo()) {
+				a1-=amt;
+			}
+		}
+		//receiver
+		for(CustomerDetails cd:l1)
+		{
+			a2=cd.getAcbalancde();
+		if(b==cd.getAcbalancde())
+		{
+			a2+=amt;
+		}
+		}
+	}
+	public static void withDraw() {
+		int t2000 = 0;
+		int h500 = 0;
+		int h200 = 0;
+		int h100 = 0;
+		int total = 0;
+		boolean g = false;
+		for (LoadAtmMachine a : l) {
+			t2000 += a.getThousand();
+			h500 += a.getFivehr();
+			h200 += a.getTwohr();
+			h100 += a.getOnehr();
+			total += a.getTotal();
+
+		}
+		int x = 0;
+		int c2000 = 0;
+		int c200 = 0;
+		int c500 = 0;
+		int c100 = 0;
+		System.out.println("enter userId");
+		int id = sc.nextInt();
+		System.out.println("enter Pin");
+		int pass = sc.nextInt();
+		boolean yes = true;
+		for (CustomerDetails u : l1) {
+			boolean y = true;
+			if (u.getAccNo() == id && u.getPin() == pass) {
+				yes = false;
+				System.out.println("Enter the amount to be withdraw");
+				int n = sc.nextInt();
+				x += n;
+				if (n > u.getAcbalancde()) {
+					System.out.println("Insuficient Balance");
+					break;
+				} else if (n > total) {
+					System.out.println(" ATM  is Insuficient Balance");
+					break;
+				} else {
+					while (n != 0) {
+						if (n >= 2000) {
+							int rem = n % 2000;
+							int count = 0;
+							while (n >= 2000) {
+								count += 1;
+								n = n / 2000;
+							}
+							c2000 += count;
+							n = rem;
+
+						} else if (n >= 500) {
+							int rem = n % 500;
+							int count = 0;
+							while (n >= 500) {
+								count += 1;
+								n = n / 500;
+							}
+							c500 += count;
+							n = rem;
+						} else if (n >= 200) {
+							int rem = n % 200;
+							int count = 0;
+							while (n >= 200) {
+								count += 1;
+								n = n / 200;
+							}
+							c200 += count;
+							n = rem;
+						} else if (n >= 100) {
+							int rem = n % 100;
+							int count = 0;
+							while (n >= 100) {
+								count += 1;
+								n = n / 100;
+							}
+							c500 += count;
+							n = rem;
+						} else if (n < 100) {
+							System.out.println("Your requset cannot be Processed");
+							y = false;
+							break;
+						}
+					}
+				}
+				if (y) {
+					if (t2000 >= c2000 && h200 >= c200 && h500 >= c500 && h100 >= c100) {
+						t2000 -= c2000;
+						g = true;
+						h200 -= c200;
+						h500 -= c500;
+						h100 -= c100;
+						int val = u.getAcbalancde() - x;
+						u.setAcbalancde(val);
+						System.out.println("Your Current balance is " + u.getAcbalancde());
+					}
+				} else {
+					break;
+				}
+
+			}
+			if (yes) {
+				System.out.println("No such user found");
+			}
+
+		}
+		if (g) {
+			for (LoadAtmMachine a : l) {
+				a.setOnehr(h100);
+				a.setTwohr(h200);
+				a.setFivehr(h500);
+				a.setThousand(t2000);
+				int val = a.getOnehr() - x;
+				a.setTotal(val);
+			}
+		}
+
+	}
+	public static void atmBalance()
+	{
+		for(LoadAtmMachine lm: l)
+		{
+			System.out.println("Rs.2000 = "+lm.getThousand()+"\nRs.500 = "+lm.getFivehr()+"\nRs.200 = "+lm.getTwohr()+"\nRs. 100 = "+lm.getOnehr());
+		}
+	}
+public static void main(String[] args) {
+	char i='y';
+	while(i=='y'||i=='Y')
+	{
+		System.out.println("Enter your choice:");
+		System.out.println("1.Add to atm");
+		System.out.println("2.Add customer details");
+		System.out.println("3.View Balance");
+		System.out.println("4.Transfer");
+		System.out.println("5.Withdraw");
+		System.out.println("6.Atm Balance");
+		System.out.println("7.Enter y to continue else Enter n :");
+		int ch=sc.nextInt();
+		switch(ch)
+		{
+		case 1:add1();break;
+		case 2:add2();break;
+		case 3:checkBalance();break;
+		case 4:transfer();break;
+		case 5:withDraw();break;
+		case 6:atmBalance();break;
+		case 7:i=sc.next().charAt(0);break;
+			default:System.out.println("No such case");break;
+		}
+	}
+}
+}
